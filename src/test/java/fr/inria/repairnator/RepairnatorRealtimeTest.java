@@ -4,35 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fr.inria.jtravis.JTravis;
 import fr.inria.jtravis.entities.Build;
-import fr.inria.jtravis.entities.BuildTool;
-import fr.inria.jtravis.entities.Job;
-import fr.inria.jtravis.entities.Log;
 import fr.inria.jtravis.entities.Repository;
-import fr.inria.jtravis.entities.StateType;
 import fr.inria.spirals.repairnator.realtime.DockerPipelineRunner;
 import fr.inria.spirals.repairnator.dockerpool.RunnablePipelineContainer;
 import fr.inria.spirals.repairnator.InputBuildId;
 import fr.inria.spirals.repairnator.config.RepairnatorConfig;
-import fr.inria.spirals.repairnator.notifier.EndProcessNotifier;
-import fr.inria.spirals.repairnator.realtime.counter.PullRequestCounter;
-import fr.inria.spirals.repairnator.realtime.notifier.TimedSummaryNotifier;
-import fr.inria.spirals.repairnator.realtime.serializer.BlacklistedSerializer;
 import fr.inria.spirals.repairnator.serializer.engines.SerializerEngine;
-import fr.inria.spirals.repairnator.states.LauncherMode;
-import fr.inria.spirals.repairnator.realtime.RTScanner;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Arrays;
 import java.util.HashSet;
 
