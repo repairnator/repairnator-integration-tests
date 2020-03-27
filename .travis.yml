@@ -1,0 +1,18 @@
+language: java
+
+sudo: true
+
+jdk: openjdk8
+
+services:
+ - docker
+
+
+
+jobs:
+  include:
+    - stage: test
+      name: "repairnator-integration-test"
+      install: ./.travis/travis-before.sh
+      script: ./.travis/travis-run.sh
+
