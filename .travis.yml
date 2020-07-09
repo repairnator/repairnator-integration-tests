@@ -14,5 +14,5 @@ jobs:
     - stage: test
       name: "repairnator-integration-test"
       install: ./.travis/travis-before.sh
-      script: ./.travis/travis-run.sh
+      script: travis_wait 40 ./.travis/travis-run.sh
 

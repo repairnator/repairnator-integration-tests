@@ -3,24 +3,23 @@ package fr.inria.repairnator;
 import ch.qos.logback.classic.Level;
 import fr.inria.jtravis.entities.Build;
 import fr.inria.spirals.repairnator.BuildToBeInspected;
-import fr.inria.spirals.repairnator.process.step.paths.ComputeTestDir;
-import fr.inria.spirals.repairnator.process.step.repair.sequencer.SequencerRepair;
-import fr.inria.spirals.repairnator.utils.Utils;
 import fr.inria.spirals.repairnator.config.RepairnatorConfig;
-import fr.inria.spirals.repairnator.process.files.FileHelper;
 import fr.inria.spirals.repairnator.process.inspectors.ProjectInspector;
 import fr.inria.spirals.repairnator.process.inspectors.RepairPatch;
-import fr.inria.spirals.repairnator.process.step.StepStatus;
+import fr.inria.spirals.repairnator.process.step.AbstractStep;
 import fr.inria.spirals.repairnator.process.step.CloneRepository;
+import fr.inria.spirals.repairnator.process.step.StepStatus;
 import fr.inria.spirals.repairnator.process.step.TestProject;
 import fr.inria.spirals.repairnator.process.step.checkoutrepository.CheckoutBuggyBuild;
 import fr.inria.spirals.repairnator.process.step.gatherinfo.BuildShouldFail;
 import fr.inria.spirals.repairnator.process.step.gatherinfo.GatherTestInformation;
 import fr.inria.spirals.repairnator.process.step.paths.ComputeClasspath;
 import fr.inria.spirals.repairnator.process.step.paths.ComputeSourceDir;
+import fr.inria.spirals.repairnator.process.step.paths.ComputeTestDir;
+import fr.inria.spirals.repairnator.process.step.repair.sequencer.SequencerRepair;
 import fr.inria.spirals.repairnator.serializer.AbstractDataSerializer;
 import fr.inria.spirals.repairnator.states.ScannedBuildStatus;
-import fr.inria.spirals.repairnator.process.step.AbstractStep;
+import fr.inria.spirals.repairnator.utils.Utils;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNull;
 import org.junit.After;
@@ -30,7 +29,9 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -56,7 +57,7 @@ public class SequencerRepairTest {
 
     @Test
     public void testSequencerRepair() throws IOException {
-        long buildId = 252712792; // surli/failingProject build
+        long buildId = 703887431; // javierron/failingProject build
         Build build = this.checkBuildAndReturn(buildId, false);
 
         tmpDir = Files.createTempDirectory("test_sequencer_repair").toFile();
@@ -93,7 +94,7 @@ public class SequencerRepairTest {
         assertThat(finalStatus, is("PATCHED"));
 
         List<RepairPatch> allPatches = inspector.getJobStatus().getAllPatches();
-        assertThat(allPatches.size(), is(248));
+        assertThat(allPatches.size(), is(4));
         assertThat(inspector.getJobStatus().getToolDiagnostic().get(sequencerRepair.getRepairToolName()), notNullValue());
     }
 
