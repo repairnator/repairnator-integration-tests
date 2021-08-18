@@ -8,7 +8,6 @@ import fr.inria.jtravis.entities.Build;
 import fr.inria.jtravis.entities.Repository;
 import fr.inria.spirals.repairnator.realtime.DockerPipelineRunner;
 import fr.inria.spirals.repairnator.dockerpool.RunnablePipelineContainer;
-import fr.inria.spirals.repairnator.InputBuildId;
 import fr.inria.spirals.repairnator.config.RepairnatorConfig;
 import fr.inria.spirals.repairnator.serializer.engines.SerializerEngine;
 import fr.inria.spirals.repairnator.realtime.ActiveMQPipelineRunner;
@@ -26,16 +25,6 @@ public class RealtimeTest
 {
 	// a failing build from tailp/Travisplay , branch failForRepairnator
     public final int easyFailingBuild = 569514744;
-
-    @Test
-    public void testDockerPipelineRunner() throws Exception {
-        RepairnatorConfig.getInstance().setRepairTools(new HashSet<>(Arrays.asList(new String[]{"NPEFix"})));
-        DockerPipelineRunner d = new DockerPipelineRunner();
-        d.initRunner();
-        RunnablePipelineContainer runner = d.submitBuild(DockerPipelineRunner.REPAIRNATOR_PIPELINE_DOCKER_IMAGE_NAME, new InputBuildId(RepairnatorConfig.getInstance().getJTravis().build().fromId(easyFailingBuild).get().getId()));
-        runner.run();
-        assertEquals(0, runner.getExitStatus().statusCode().longValue());
-    }
 
     /**
      * Note this test might fail locally if you don't have activeMQ
